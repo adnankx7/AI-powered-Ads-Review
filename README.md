@@ -16,7 +16,18 @@ This is a Flask web application for submitting car ads, which uses LangChain and
 
 ## Setup Instructions
 
-### 1. Install Dependencies
+### 1. Create a Virtual Environment (Recommended)
+Create and activate a virtual environment to isolate dependencies:
+
+```bash
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+# source venv/bin/activate
+```
+
+### 2. Install Dependencies
 Clone or download the project, then install Python dependencies:
 
 ```bash
@@ -25,14 +36,14 @@ pip install -r requirements.txt
 
 This installs Flask, LangChain, Groq integrations, and dotenv.
 
-### 2. Get Groq API Key
+### 3. Get Groq API Key
 - Sign up at [groq.com](https://groq.com) for a free API key.
 - Create a `.env` file in the project root and add:
   ```
   GROQ_API_KEY=your_api_key_here
   ```
 
-### 3. Run the Application
+### 4. Run the Application
 Navigate to the project directory and run:
 
 ```bash
@@ -41,7 +52,7 @@ python app.py
 
 The Flask server will start on `http://127.0.0.1:5000`.
 
-### 4. Access the App
+### 5. Access the App
 - Open your browser and go to `http://127.0.0.1:5000`.
 - Fill out the car ad form.
 - Submit the form. The AI will review it and show approval/rejection.
