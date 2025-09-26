@@ -1,16 +1,14 @@
-import os
-from langchain_groq import ChatGroq
-from langchain_core.prompts import PromptTemplate
-from langchain_core.runnables import Runnable
-from langchain_core.output_parsers import JsonOutputParser
-from dotenv import load_dotenv
+const { ChatGroq } = require('@langchain/groq');
+const { PromptTemplate } = require('@langchain/core/prompts');
+const { JsonOutputParser } = require('@langchain/core/output_parsers');
+require('dotenv').config();
 
-load_dotenv()
-os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
+const llm = new ChatGroq({
+  model: "llama-3.1-8b-instant",
+  apiKey: process.env.GROQ_API_KEY,
+});
 
-llm = ChatGroq(model= "llama-3.1-8b-instant")
-
-prompt = PromptTemplate.from_template("""
+const prompt = PromptTemplate.fromTemplate(`
 You are an AI content reviewer for a multilingual car marketplace.
 
 Users may write ads in:
@@ -46,10 +44,10 @@ Respond only with valid JSON in this format. Do not include any other text or ex
   "decision": "Approve" or "Reject",
   "reason": "Explain clearly why the ad was approved or rejected. Mention any mismatches, inappropriate language, or misleading claims."
 }}
-""")
+`);
 
+function getAdReviewChain() {
+  return prompt.pipe(llm).pipe(new JsonOutputParser());
+}
 
-
-
-def get_ad_review_chain() -> Runnable:
-    return prompt | llm | JsonOutputParser()
+module.exports = { getAdReviewChain };
